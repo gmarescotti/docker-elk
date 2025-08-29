@@ -1,0 +1,12 @@
+lista tutti gli indici di elastic search 
+2133  curl -X GET "http://localhost:9200/_cat/indices?v"
+
+list pretty se non dovesse funzionare la precendente, cerca name: "nome indice" e usa quello
+ 2140  curl -X GET "http://localhost:9200/_data_stream?pretty"
+
+esempi:
+ 2134  curl -X DELETE "http://localhost:9200/_data_stream/metricbeat-8.17.4"
+ 2141  curl -X DELETE "http://localhost:9200/_data_stream/logs-generic-default"
+ 2130  curl -X DELETE "http://localhost:9200/_data_stream/.ds-metricbeat-8.17.1-2025.03.31-000003"
+ 2131  curl -X DELETE "http://localhost:9200/_data_stream/metricbeat-8.17.4"
+ 2132  curl -X DELETE "http://localhost:9200/_data_stream/metricbeat-8.17.1"
