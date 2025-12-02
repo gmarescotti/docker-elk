@@ -11,9 +11,17 @@ vis_type_vega.enableExternalUrls: true
 monitoring.ui.container.elasticsearch.enabled: true
 monitoring.ui.container.logstash.enabled: true
 
+
+# xpack.security.authc.providers:
+#   basic.basic1:
+#     order: 0
+#   anonymous.anonymous1:
+#     order: 1
+#     description: "Guest access"
+
 ## X-Pack security credentials
 #
-elasticsearch.username: kibana_system
+elasticsearch.username: "kibana_system"
 elasticsearch.password: ${KIBANA_SYSTEM_PASSWORD}
 
 ## Encryption keys (optional but highly recommended)
@@ -25,8 +33,8 @@ elasticsearch.password: ${KIBANA_SYSTEM_PASSWORD}
 ## https://www.elastic.co/guide/en/kibana/current/using-kibana-with-security.html
 ## https://www.elastic.co/guide/en/kibana/current/kibana-encryption-keys.html
 #
-#xpack.security.encryptionKey:
-#xpack.encryptedSavedObjects.encryptionKey:
+xpack.security.encryptionKey: "NonusarecaratterispecialichepotrebberoconfondereYAML"
+xpack.encryptedSavedObjects.encryptionKey: "NonusarecaratterispecialichepotrebberoconfondereYAML"
 #xpack.reporting.encryptionKey:
 
 ## Fleet
@@ -34,6 +42,7 @@ elasticsearch.password: ${KIBANA_SYSTEM_PASSWORD}
 #
 xpack.fleet.agents.enabled: false
 
+# xpack.fleet.enabled: true
 # xpack.fleet.registryProxyUrl: "http://10.27.199.10:3128"
 
 xpack.actions.proxyUrl: "http://10.27.199.10:3128"
