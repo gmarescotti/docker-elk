@@ -1,0 +1,174 @@
+{
+    "$schema": "https://adaptivecards.io/schemas/adaptive-card.json",
+    "version": "1.5",
+    "msteams": {
+        "cardTypeId": "${$root.cardTypeId}"
+    },
+    "type": "AdaptiveCard",
+    "speak": "Version 2.2 performance optimization",
+    "rtl": false,
+    "body": [
+        {
+            "columns": [
+                {
+                    "width": "auto",
+                    "type": "Column",
+                    "items": [
+                        {
+                            "type": "Image",
+                            "size": "Medium",
+                            "url": "${$root.icon}"
+                        }
+                    ]
+                },
+                {
+                    "width": "stretch",
+                    "items": [
+                        {
+                            "size": "ExtraLarge",
+                            "type": "TextBlock",
+                            "text": "${$root.title}",
+                            "fontType": "Default",
+                            "style": "default",
+                            "weight": "Default",
+                            "horizontalAlignment": "Left",
+                            "spacing": "None"
+                        }
+                    ],
+                    "verticalContentAlignment": "Center",
+                    "type": "Column"
+                },
+                {
+                    "type": "Column",
+                    "width": "auto",
+                    "items": [
+                        {
+                            "type": "Badge",
+                            "text": "${$root.nodo}",
+                            "size": "Large",
+                            "appearance": "Tint",
+                            "style": "Subtle"
+                        }
+                    ],
+                    "spacing": "None"
+                },
+                {
+                    "type": "Column",
+                    "width": "auto",
+                    "items": [
+                        {
+                            "type": "Badge",
+                            "text": "${$root.clone}",
+                            "size": "Large",
+                            "shape": "Rounded",
+                            "spacing": "ExtraSmall",
+                            "appearance": "Tint",
+                            "style": "Informative"
+                        }
+                    ],
+                    "height": "stretch",
+                    "spacing": "None"
+                }
+            ],
+            "type": "ColumnSet",
+            "spacing": "Large"
+        },
+        {
+            "type": "Container",
+            "items": [
+                {
+                    "type": "TextBlock",
+                    "wrap": true,
+                    "size": "Large",
+                    "style": "default",
+                    "text": "${$root.descr}",
+                    "spacing": "None",
+                    "color": "Default"
+                },
+                {
+                    "type": "Container",
+                    "items": [
+                        {
+                            "type": "RichTextBlock",
+                            "$when": "${$root.subdescr_visible}",
+                            "inlines": [
+                                {
+                                    "type": "TextRun",
+                                    "text": "${$root.subdescr}",
+                                    "fontType": "Monospace",
+                                    "size": "Small",
+                                    "isSubtle": true,
+                                    "wrap": false
+                                }
+                            ]
+                        }
+                    ],
+                    "$when": "${$root.subdescr_visible}"
+                }
+            ],
+            "roundedCorners": true,
+            "style": "default"
+        },
+        {
+            "type": "ColumnSet",
+            "columns": [
+                {
+                    "type": "Column",
+                    "width": "auto",
+                    "rtl": false,
+                    "verticalContentAlignment": "Center",
+                    "spacing": "None",
+                    "items": [
+                        {
+                            "actions": [
+                                {
+                                    "title": "Elasticsearch",
+                                    "type": "Action.OpenUrl",
+                                    "iconUrl": "icon:LinkMultiple",
+                                    "url": "${$root.link}",
+                                    "style": "destructive"
+                                }
+                            ],
+                            "type": "ActionSet",
+                            "horizontalAlignment": "Right",
+                            "spacing": "None"
+                        }
+                    ],
+                    "targetWidth": "AtLeast:Standard"
+                },
+                {
+                    "type": "Column",
+                    "width": "stretch",
+                    "verticalContentAlignment": "Center",
+                    "horizontalAlignment": "Right",
+                    "rtl": false,
+                    "spacing": "None"
+                },
+                {
+                    "type": "Column",
+                    "width": "auto",
+                    "horizontalAlignment": "Center",
+                    "verticalContentAlignment": "Bottom",
+                    "spacing": "None",
+                    "items": [
+                        {
+                            "type": "TextBlock",
+                            "text": "${$root.date}",
+                            "fontType": "Monospace",
+                            "horizontalAlignment": "Right",
+                            "size": "Small",
+                            "spacing": "None",
+                            "maxLines": 0,
+                            "isSubtle": false,
+                            "wrap": true
+                        }
+                    ],
+                    "backgroundImage": {
+                        "verticalAlignment": "Center"
+                    }
+                }
+            ],
+            "spacing": "ExtraLarge"
+        }
+    ]
+}

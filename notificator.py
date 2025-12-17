@@ -17,6 +17,7 @@ pendulum.set_locale('it')
 
 
 # --- Configurazioni ---
+KIBANA_URL = "http://127.0.0.1:5601"
 ES_URL = "http://127.0.0.1:9200"
 ES_USER = "elastic"
 ES_PASS = "RX+tdMrgfnDpsKaukNd6"
@@ -24,7 +25,8 @@ INDEX = "alerts-metricbeat"
 
 WEBHOOK_URL={
     "Riunione con GM": "https://defaultc187ee014e4e40c8b342f82c8d6994.21.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/41955eb22a2644ba90fb27ff4368a850/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=dQYSAtmMm-ijfRB_ZwrATvxELZwp7zSvuI0r1Jd-iSk",
-    "ELK TML":         "https://defaultc187ee014e4e40c8b342f82c8d6994.21.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/afe6d721dd254756bbfec11493a603de/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Hzo4-hAoxTUDLcWdI7jR4PT8NrZJjkdde1C_YMwS00Y"
+    "ELK TML2":        "https://defaultc187ee014e4e40c8b342f82c8d6994.21.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/afe6d721dd254756bbfec11493a603de/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Hzo4-hAoxTUDLcWdI7jR4PT8NrZJjkdde1C_YMwS00Y",
+    "ELK TML":         "https://defaultc187ee014e4e40c8b342f82c8d6994.21.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/230aead804b64939a48eba174be7815b/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=scJ7wy8WUDsvB9Cad5aM_IOV611rZagRrRXXWswj4CQ"
 }
 
 def get_cardTypeId(data):
@@ -33,7 +35,7 @@ def get_cardTypeId(data):
         ret.append(data[field].lower().replace(":","").replace(" ", "_"))
     return "-".join(ret)
 
-def load_card(card="tecno5", data:dict={}) -> json:
+def load_card(card, data:dict={}) -> json:
     with open(os.path.join(f"{os.path.dirname(os.path.abspath(__file__))}/adaptivecards", f"{card}.json"), "r", encoding="utf-8") as f:
         content = f.read()
 
@@ -65,7 +67,7 @@ def remove_proxy():
 
 remove_proxy()
 
-def teams_send2(team_group_name: str, card="card", subdescr_visible=False, **kwargs):
+def teams_send2(team_group_name: str, card="simplecard", subdescr_visible=False, **kwargs):
     """ nuova versione di adaptive cards"""
 
     kwargs["icon"] = kwargs["icon"].replace("\n", "")
@@ -148,12 +150,12 @@ def disc_metric_threshold(timestamp, nodo, clone, disco, reason, groups="_,unkno
         clone=clone
     )
 
-def raid_maintenance(timestamp, nodo, clone, reason, system_raid_sync_action, system_raid_status, system_raid_level, system_raid_name,  **resto):
+def raid_maintenance(timestamp, nodo, clone, reason, system_raid_sync_action, system_raid_level, system_raid_name,  **resto):
     teams_send2(
         team_group_name="ELK TML", 
         icon=icons_base64.raid, 
-        title=f"RAID in {system_raid_sync_action}", 
-        descr=f"I dischi del RAID di livello {system_raid_level} sul dispositivo {system_raid_name} sono in {system_raid_sync_action}, e stanno riallineando i dati o ricostruendo la parità. Lo stato è {system_raid_status}", 
+        title=f"RAID in **{system_raid_sync_action.upper()}**", 
+        descr=f"I dischi del RAID di livello {system_raid_level} sul dispositivo {system_raid_name} sono in {system_raid_sync_action}, e stanno riallineando i dati o ricostruendo la parità.", 
         date=timestamp, 
         nodo=nodo, 
         clone=clone, 
@@ -169,7 +171,7 @@ def system_service_failed(timestamp, nodo, clone, reason, system_service_name, *
         team_group_name="ELK TML", 
         icon=icons_base64.service,
         title=f"**{system_service_name}**", 
-        descr=f"Il servizio *{system_service_name}* é in stato fallito",
+        descr=f"Il servizio *{system_service_name}* é fallito",
         date=timestamp, 
         nodo=nodo, 
         clone=clone
@@ -197,7 +199,8 @@ def main(hits):
 
         # crea un oggetto datetime pendulum per formato pretty
         dt = pendulum.parse(src["timestamp"])
-        src["timestamp"] = dt.format('dddd D MMMM YYYY, HH:mm:ss') # .encode('unicode_escape').decode('utf-8')
+        # src["timestamp"] = dt.format('dddd D MMMM YYYY, HH:mm:ss') # .encode('unicode_escape').decode('utf-8')
+        src["timestamp"] = dt.format('D/M/YYYY, HH:mm:ss') # .encode('unicode_escape').decode('utf-8')
 
         print("hit=", json.dumps(hit, indent=2))
 
