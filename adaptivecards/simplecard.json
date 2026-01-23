@@ -9,11 +9,48 @@
     "rtl": false,
     "body": [
         {
-            "type": "TextBlock",
-            "text": "${$root.title} su clone ${$root.clone} nodo ${$root.nodo} risolta.",
-            "wrap": true,
-            "isVisible": false,
-            "id": "contenitore3"
+            "type": "ColumnSet",
+            "columns": [
+                {
+                    "type": "Column",
+                    "width": "stretch",
+                    "items": [
+                        {
+                            "type": "TextBlock",
+                            "text": "${$root.title} su clone ${$root.clone} nodo ${$root.nodo} **risolta**.",
+                            "wrap": true
+                        }
+                    ]
+                },
+                {
+                    "type": "Column",
+                    "width": "auto",
+                    "items": [
+                        {
+                            "type": "ActionSet",
+                            "actions": [
+                                {
+                                    "type": "Action.ToggleVisibility",
+                                    "title": "Ripristina la notifica",
+                                    "iconUrl": "icon:ChevronCircleUp",
+                                    "targetElements": [
+                                        "contenitore",
+                                        "contenitore2",
+                                        "contenitore3",
+                                        "contenitore4"
+                                    ],
+                                    "mode": "secondary"
+                                }
+                            ]
+                        }
+                    ],
+                    "spacing": "None",
+                    "horizontalAlignment": "Right",
+                    "bleed": true
+                }
+            ],
+            "id": "contenitore3",
+            "isVisible": false
         },
         {
             "columns": [
@@ -24,11 +61,7 @@
                         {
                             "type": "Image",
                             "size": "Medium",
-                            "url": "${$root.icon}",
-                            "selectAction": {
-                                "type": "Action.ToggleVisibility",
-                                "id": "contenitore"
-                            }
+                            "url": "${$root.icon}"
                         }
                     ]
                 },
@@ -90,9 +123,9 @@
                                 {
                                     "type": "Action.ToggleVisibility",
                                     "targetElements": [
-                                        "contenitore",
                                         "contenitore2",
-                                        "contenitore3"
+                                        "contenitore3",
+                                        "contenitore4"
                                     ],
                                     "iconUrl": "icon:DismissCircle",
                                     "mode": "secondary",
@@ -215,7 +248,7 @@
                 }
             ],
             "roundedCorners": true,
-            "id": "contenitore"
+            "id": "contenitore4"
         }
     ]
 }
